@@ -33,7 +33,7 @@ const App = () => {
             </div>
 
             <div className="gap-10 flex flex-col items-center justify-center">
-              <div className="flex flex-col items-center w-48 px-4">
+              <div className="flex flex-col items-center w-48 px-4 ">
                 <input
                   type="range"
                   min="0"
