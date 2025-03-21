@@ -3,6 +3,10 @@ import { SketchPicker } from 'react-color';
 import { Slider } from "@/components/ui/slider";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "@/components/ui/select";
+import SyntaxHighlighter from 'react-syntax-highlighter';
+import { codeBlockStyle } from "@/lib/styles";
+import { codeCSS } from "@/lib/code";
+import { atomDark } from "react-syntax-highlighter/dist/esm/styles/prism";
 
 const directionOptions = [
   "to top",
@@ -21,6 +25,14 @@ const App = () => {
   const [gradientEnd, setGradientEnd] = useState<string>('#1177ff');
   const [gradientDirection, setGradientDirection] = useState<string>(directionOptions[0]);
   const [noiseSize, setNoiseSize] = useState<number>(128);
+
+  const replaceVariables = (code: string) => {
+    return code
+      .replace('{{gradientStart}}', gradientStart)
+      .replace('{{gradientEnd}}', gradientEnd)
+      .replace('{{gradientDirection}}', gradientDirection)
+      .replace('{{noiseSize}}', noiseSize.toString());
+  }
 
   return (
     <div className='h-screen w-full bg-neutral-900 flex p-5 gap-5'>
@@ -109,13 +121,19 @@ const App = () => {
 
             <div className="bg-muted w-full h-full p-3 rounded-md">
               <TabsContent value="css" className="w-full h-full">
-                CSS CODE
+                <SyntaxHighlighter language="typescript" style={atomDark}>
+                  {replaceVariables(codeCSS)}
+                </SyntaxHighlighter>
               </TabsContent>
               <TabsContent value="tailwind3" className="w-full h-full">
-                TAILWIND3 CODE
+                <SyntaxHighlighter language="typescript" style={codeBlockStyle}>
+                  TAILWIND3 CODE
+                </SyntaxHighlighter>
               </TabsContent>
               <TabsContent value="tailwind4" className="w-full h-full">
-                TAILWIND4 CODE
+                <SyntaxHighlighter language="typescript" style={codeBlockStyle}>
+                  TAILWIND4 CODE
+                </SyntaxHighlighter>
               </TabsContent>
             </div>
 
