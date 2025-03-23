@@ -1,12 +1,12 @@
-import { useState } from "react";
-import { SketchPicker } from 'react-color';
-import { Slider } from "@/components/ui/slider";
-import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "@/components/ui/select";
-import SyntaxHighlighter from 'react-syntax-highlighter';
+import { Slider } from "@/components/ui/slider";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { codeCSS, codeTailwind } from "@/lib/code";
 import { codeBlockStyle } from "@/lib/styles";
-import { codeCSS } from "@/lib/code";
-import { atomDark } from "react-syntax-highlighter/dist/esm/styles/prism";
+import { useState } from "react";
+import { CompactPicker, SketchPicker } from 'react-color';
+import SyntaxHighlighter from 'react-syntax-highlighter';
+import { Separator } from "./components/ui/separator";
 
 const directionOptions = [
   "to top",
@@ -21,127 +21,76 @@ const directionOptions = [
 
 const App = () => {
 
-  const [gradientStart, setGradientStart] = useState<string>('#ffee11');
-  const [gradientEnd, setGradientEnd] = useState<string>('#1177ff');
+  const [gradientStart, setGradientStart] = useState<string>('#009CE0');
+  const [gradientEnd, setGradientEnd] = useState<string>('#F44E3B');
   const [gradientDirection, setGradientDirection] = useState<string>(directionOptions[0]);
   const [noiseSize, setNoiseSize] = useState<number>(128);
 
-  const replaceVariables = (code: string) => {
-    return code
-      .replace('{{gradientStart}}', gradientStart)
-      .replace('{{gradientEnd}}', gradientEnd)
-      .replace('{{gradientDirection}}', gradientDirection)
-      .replace('{{noiseSize}}', noiseSize.toString());
-  }
-
   return (
-    <div className='h-screen w-full bg-neutral-900 flex p-5 gap-5'>
+    <div className='min-h-screen w-full bg-background flex'>
 
-      {/* Preview */}
-      <div className='flex items-center justify-center w-1/3'>
+      {/* Left */}
+      <div className="h-screen w-2/5 sticky top-0 left-0 border-r border-border">
         <div
-          className='max-h-5/6 max-w-5/6 min-w-20 min-h-20 w-full h-full bg-black resize shadow-lg rounded-xs relative overflow-hidden'
-          style={{ resize: 'both', backgroundImage: `linear-gradient(${gradientDirection}, ${gradientStart}, ${gradientEnd})` }}
+          className='w-full h-full shadow-lg relative overflow-hidden'
+          style={{ backgroundImage: `linear-gradient(${gradientDirection}, ${gradientStart}, ${gradientEnd})` }}
         >
           <div className="pointer-events-none absolute inset-0 bg-[url('/noise.webp')] mix-blend-soft-light" style={{ backgroundSize: `${noiseSize}px` }} />
         </div>
       </div>
 
-      <div className='flex flex-col gap-5 flex-1'>
+      {/* Right */}
+      <div className="flex-1 px-5 py-4 flex flex-col gap-5">
 
-        <div className="h-1/2 flex">
-          <div className="grid grid-cols-4 gap-5 flex-1">
+        {/* Header */}
+        <div className="flex flex-col gap-2">
 
-            {/* Colors */}
-            <div className="flex flex-col gap-3 items-center col-span-2">
-              <h2 className="text-3xl">Colors</h2>
+          <h1 className="text-4xl font-medium">rbtavares/noise-gradients</h1>
+          <p className="text-muted-foreground">A simple tool to preview noise gradients and get started with them in your projects. Includes ready-to-use code snippets and setup instructions.</p>
 
-              <div className="flex items-center gap-5 flex-1">
-                <SketchPicker className="text-background" color={gradientStart} onChangeComplete={(color) => setGradientStart(color.hex)} disableAlpha />
-                <SketchPicker className="text-background" color={gradientEnd} onChangeComplete={(color) => setGradientEnd(color.hex)} disableAlpha />
-              </div>
+        </div>
+
+        <Separator />
+
+        {/* Gradient Parameters */}
+        <div className="flex flex-col gap-2">
+
+          <h2 className="text-2xl">Gradient</h2>
+
+          <div className="grid grid-cols-3 gap-2 w-full">
+            <div className="flex flex-col gap-2 items-start">
+              <p className="text-sm font-medium">Start</p>
+              <CompactPicker color={gradientStart} onChangeComplete={(color) => setGradientStart(color.hex)} />
             </div>
-
-            {/* Gradient */}
-            <div className="flex flex-col gap-3 items-center">
-              <h2 className="text-3xl">Gradient</h2>
-
-              <div className="flex flex-col justify-center gap-2 flex-1 w-5/6">
-                <p>Direction</p>
-                <Select value={gradientDirection} onValueChange={(value) => setGradientDirection(value)}>
-                  <SelectTrigger className="w-full">
-                    <SelectValue placeholder="Select a direction" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectGroup>
-                      <SelectLabel>Direction</SelectLabel>
-                      {directionOptions.map((option) => (
-                        <SelectItem key={option} value={option}>{option}</SelectItem>
-                      ))}
-                    </SelectGroup>
-                  </SelectContent>
-                </Select>
-              </div>
+            <div className="flex flex-col gap-2 items-start">
+              <p className="text-sm font-medium">End</p>
+              <CompactPicker color={gradientEnd} onChangeComplete={(color) => setGradientEnd(color.hex)} />
             </div>
-
-            {/* Noise */}
-            <div className="flex flex-col gap-3 items-center">
-              <h2 className="text-3xl">Noise</h2>
-
-              <div className="flex flex-col justify-center gap-2 flex-1 w-5/6">
-                <div className="flex items-center justify-between gap-3">
-                  <p>Size</p>
-                  <p className="text-xs text-muted-foreground">{noiseSize}px</p>
-                </div>
-                <Slider
-                  value={[noiseSize]}
-                  onValueChange={(value) => setNoiseSize(value[0])}
-                  min={64}
-                  max={512}
-                  step={16}
-                />
-              </div>
+            <div className="flex flex-col gap-2 items-start">
+              <p className="text-sm font-medium">Direction</p>
+              <Select value={gradientDirection} onValueChange={(value) => setGradientDirection(value)}>
+                <SelectTrigger className="w-full">
+                  <SelectValue placeholder="Select a direction" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectGroup>
+                    <SelectLabel>Direction</SelectLabel>
+                    {directionOptions.map((option) => (
+                      <SelectItem key={option} value={option}>{option}</SelectItem>
+                    ))}
+                  </SelectGroup>
+                </SelectContent>
+              </Select>
             </div>
-
           </div>
         </div>
 
-        {/* Code */}
-        <div className="h-1/2 p-2 flex flex-col gap-3 items-center justify-center">
-          <Tabs defaultValue="tailwind3" className="flex flex-col items-center h-full w-full">
+        <Separator />
 
-            <div className="w-full flex justify-between gap-3 items-center">
-              <h2 className="text-3xl">Code</h2>
-              <TabsList className="grid grid-cols-3 w-1/2">
-                <TabsTrigger value="css">CSS Only</TabsTrigger>
-                <TabsTrigger value="tailwind3">TailwindCSS v.3x</TabsTrigger>
-                <TabsTrigger value="tailwind4">TailwindCSS v.4x</TabsTrigger>
-              </TabsList>
-            </div>
-
-            <div className="bg-muted w-full h-full p-3 rounded-md">
-              <TabsContent value="css" className="w-full h-full">
-                <SyntaxHighlighter language="typescript" style={atomDark}>
-                  {replaceVariables(codeCSS)}
-                </SyntaxHighlighter>
-              </TabsContent>
-              <TabsContent value="tailwind3" className="w-full h-full">
-                <SyntaxHighlighter language="typescript" style={codeBlockStyle}>
-                  TAILWIND3 CODE
-                </SyntaxHighlighter>
-              </TabsContent>
-              <TabsContent value="tailwind4" className="w-full h-full">
-                <SyntaxHighlighter language="typescript" style={codeBlockStyle}>
-                  TAILWIND4 CODE
-                </SyntaxHighlighter>
-              </TabsContent>
-            </div>
-
-          </Tabs>
+        <div>
+          <h2 className="text-lg font-medium">Download Noise Image</h2>
         </div>
-
       </div>
-
     </div>
   )
 }
