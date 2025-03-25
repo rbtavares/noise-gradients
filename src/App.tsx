@@ -31,7 +31,7 @@ const App = () => {
   const [noiseSize, setNoiseSize] = useState<number>(128);
   const [svgSize, setSvgSize] = useState<number>(256);
   const [frequency, setFrequency] = useState<number>(0.75);
-  const [octaves, setOctaves] = useState<number>(1);
+  const [brightness, setBrightness] = useState<number>(0.1);
   const [isCustomSVG, setIsCustomSVG] = useState<boolean>(false);
 
   const noiseSvg = useMemo(() => {
@@ -40,13 +40,18 @@ const App = () => {
         <feTurbulence 
           type='fractalNoise' 
           baseFrequency='${frequency}' 
-          numOctaves='${octaves}' 
+          numOctaves='1' 
           stitchTiles='stitch'/>
+        <feComponentTransfer>
+          <feFuncR type="linear" slope="${brightness}"/>
+          <feFuncG type="linear" slope="${brightness}"/>
+          <feFuncB type="linear" slope="${brightness}"/>
+        </feComponentTransfer>
       </filter>
       <rect width='100%' height='100%' filter='url(#noiseFilter)'/>
     </svg>`;
     return `data:image/svg+xml;base64,${btoa(svg)}`;
-  }, [svgSize, frequency, octaves]);
+  }, [svgSize, frequency, brightness]);
 
   return (
     <div className='min-h-screen w-full bg-background flex'>
@@ -195,18 +200,18 @@ const App = () => {
               />
             </div>}
 
-            {/* Octaves */}
+            {/* Brightness */}
             {isCustomSVG && <div className="flex flex-col gap-2 items-start">
               <div className="flex items-end justify-between w-full">
-                <h3>Octaves</h3>
-                <span className="text-muted-foreground text-xs tabular-nums">{octaves}</span>
+                <h3>Brightness</h3>
+                <span className="text-muted-foreground text-xs tabular-nums">{brightness.toFixed(2)}</span>
               </div>
               <Slider
-                value={[octaves]}
-                onValueChange={(value) => setOctaves(value[0])}
-                min={1}
-                max={10}
-                step={1}
+                value={[brightness]}
+                onValueChange={(value) => setBrightness(value[0])}
+                min={0}
+                max={1}
+                step={0.01}
               />
             </div>}
 
@@ -239,7 +244,7 @@ const App = () => {
                   .replace('{{noiseSize}}', noiseSize.toString())
                   .replace('{{svgSize}}', svgSize.toString())
                   .replace('{{frequency}}', frequency.toString())
-                  .replace('{{octaves}}', octaves.toString())
+                  .replace('{{brightness}}', brightness.toString())
                   .replace('{{file}}', isCustomSVG ? 'noise.svg' : 'noise.webp')
                 :
                 codeTailwind.replace('{{gradientStart}}', gradientStart)
@@ -248,7 +253,7 @@ const App = () => {
                   .replace('{{noiseSize}}', noiseSize.toString())
                   .replace('{{svgSize}}', svgSize.toString())
                   .replace('{{frequency}}', frequency.toString())
-                  .replace('{{octaves}}', octaves.toString())
+                  .replace('{{brightness}}', brightness.toString())
                   .replace('{{file}}', isCustomSVG ? 'noise.svg' : 'noise.webp')
               }
             </SyntaxHighlighter>
