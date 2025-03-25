@@ -54,10 +54,10 @@ const App = () => {
   }, [svgSize, frequency, brightness]);
 
   return (
-    <div className='min-h-screen w-full bg-background flex'>
+    <div className='min-h-screen w-full bg-background flex flex-col sm:flex-row'>
 
       {/* Left */}
-      <div className="h-screen w-2/5 sticky top-0 left-0 border-r border-border">
+      <div className="h-96 w-full sm:h-screen sm:w-2/5 sm:sticky sm:top-0 sm:left-0 sm:border-r border-b border-border">
         <div
           className='w-full h-full shadow-lg relative overflow-hidden'
           style={{ backgroundImage: `linear-gradient(${gradientDirection}, ${gradientStart}, ${gradientEnd})` }}
@@ -73,13 +73,13 @@ const App = () => {
       </div>
 
       {/* Right */}
-      <div className="flex-1 px-5 py-4 flex flex-col gap-6 w-0">
+      <div className="max-sm:w-full flex-1 px-5 py-4 flex flex-col gap-6 w-0">
 
         {/* Header */}
         <div className="flex flex-col gap-2">
 
           <h1 className="text-4xl font-medium">
-            <span className="inline md:inline xs:hidden">{'rbtavares/'}</span>
+            <span className="inline md:inline sm:hidden">{'rbtavares/'}</span>
             noise-gradients
           </h1>
           <p className="text-muted-foreground">A simple tool to preview noise gradients and get started with them in your projects. Includes ready-to-use code snippets and setup instructions.</p>
