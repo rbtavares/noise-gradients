@@ -5,7 +5,7 @@ import { codeCSS, codeTailwind } from "@/lib/code";
 import { codeBlockStyle } from "@/lib/styles";
 import { ArrowDown, ArrowDownLeft, ArrowDownRight, ArrowLeft, ArrowRight, ArrowUp, ArrowUpLeft, ArrowUpRight, DownloadSimple } from "@phosphor-icons/react";
 import { useState, useMemo } from "react";
-import { CompactPicker } from 'react-color';
+import { SliderPicker } from 'react-color';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { RadioGroup, RadioGroupItem } from "./components/ui/radio-group";
 import { Separator } from "./components/ui/separator";
@@ -24,8 +24,8 @@ const directionOptions = [
 
 const App = () => {
 
-  const [gradientStart, setGradientStart] = useState<string>('#009CE0');
-  const [gradientEnd, setGradientEnd] = useState<string>('#F44E3B');
+  const [gradientStart, setGradientStart] = useState<string>('#006DE0');
+  const [gradientEnd, setGradientEnd] = useState<string>('#f43B3B');
   const [gradientDirection, setGradientDirection] = useState<string>(directionOptions[0]);
   const [codeType, setCodeType] = useState<string>('tailwind');
   const [noiseSize, setNoiseSize] = useState<number>(128);
@@ -93,12 +93,12 @@ const App = () => {
 
             <div className="flex flex-col gap-2 items-start">
               <h3>Start Color</h3>
-              <CompactPicker color={gradientStart} onChangeComplete={(color) => setGradientStart(color.hex)} />
+              <SliderPicker color={gradientStart} onChange={(color) => setGradientStart(color.hex)} className="w-full" />
             </div>
 
             <div className="flex flex-col gap-2 items-start">
               <h3>End Color</h3>
-              <CompactPicker color={gradientEnd} onChangeComplete={(color) => setGradientEnd(color.hex)} />
+              <SliderPicker color={gradientEnd} onChange={(color) => setGradientEnd(color.hex)} className="w-full" />
             </div>
 
             <div className="flex flex-col gap-2 items-start">
