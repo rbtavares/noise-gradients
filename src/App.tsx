@@ -57,7 +57,7 @@ const App = () => {
     <div className='min-h-screen w-full bg-background flex flex-col sm:flex-row'>
 
       {/* Left */}
-      <div className="h-96 w-full sm:h-screen sm:w-2/5 sm:sticky sm:top-0 sm:left-0 sm:border-r border-b border-border">
+      <div className="h-36 w-full sm:h-screen sm:w-2/5 sticky top-0 left-0 sm:border-r border-b border-muted z-50">
         <div
           className='w-full h-full shadow-lg relative overflow-hidden'
           style={{ backgroundImage: `linear-gradient(${gradientDirection}, ${gradientStart}, ${gradientEnd})` }}
@@ -79,7 +79,7 @@ const App = () => {
         <div className="flex flex-col gap-2">
 
           <h1 className="text-4xl font-medium">
-            <span className="inline md:inline sm:hidden">{'rbtavares/'}</span>
+            <span className="hidden md:inline">{'rbtavares/'}</span>
             noise-gradients
           </h1>
           <p className="text-muted-foreground">A simple tool to preview noise gradients and get started with them in your projects. Includes ready-to-use code snippets and setup instructions.</p>
@@ -89,10 +89,10 @@ const App = () => {
         <Separator />
 
         {/* Gradient Parameters */}
-        <div className="flex flex-col gap-3">
+        <div className="flex flex-col gap-5 md:gap-3">
 
           <h2 className="text-2xl">Gradient</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-10 w-full">
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5 md:gap-10 w-full">
 
             <div className="flex flex-col gap-5 items-start">
               <h3>Start Color</h3>
@@ -142,14 +142,14 @@ const App = () => {
         <Separator />
 
         {/* Noise */}
-        <div className="flex flex-col gap-3">
+        <div className="flex flex-col gap-5 md:gap-3">
           <div className="flex items-center justify-between">
             <h2 className="text-2xl">Noise</h2>
 
             <a
               href={isCustomSVG ? noiseSvg : '/noise-gradients/noise.webp'}
               download={isCustomSVG ? 'noise.svg' : 'noise.webp'}
-              className="flex items-center gap-1 text-muted-foreground text-sm hover:underline"
+              className="items-center gap-1 text-muted-foreground text-sm hover:underline hidden md:flex"
             >
               <DownloadSimple size={16} weight="bold" />
               Download {isCustomSVG ? 'Custom SVG' : 'Noise'}
@@ -160,7 +160,7 @@ const App = () => {
               <Label htmlFor="custom-noise">Custom SVG</Label>
             </div>
           </div>
-          <div className={`w-full ${isCustomSVG ? 'grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-10' : ''}`}>
+          <div className={`w-full ${isCustomSVG ? 'grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-5 md:gap-10' : ''}`}>
 
             {/* BG Size */}
             <div className="flex flex-col gap-3 items-start">
@@ -228,7 +228,7 @@ const App = () => {
         <Separator />
 
         {/* Code */}
-        <div className="flex flex-col gap-2 w-full">
+        <div className="flex flex-col gap-5 md:gap-3 w-full">
           <div className="flex items-center justify-between">
             <h2 className="text-2xl">Code</h2>
             <RadioGroup value={codeType} onValueChange={(value) => setCodeType(value)} className="flex items-center gap-2">
