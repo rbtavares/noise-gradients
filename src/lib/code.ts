@@ -24,5 +24,5 @@ export const codeTailwind =
   style={{ backgroundSize: '{{noiseSize}}px'}}
 >
   <div className="pointer-events-none absolute inset-0 bg-[url('/{{file}}')] mix-blend-soft-light" />
-  // othercontent goes here
+  // other content goes here
 </div>`
