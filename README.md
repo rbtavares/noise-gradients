@@ -1,54 +1,82 @@
-# React + TypeScript + Vite
+# Noise Gradients
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/rbtavares/noise-gradients/deploy.yml)
+![GitHub License](https://img.shields.io/github/license/rbtavares/noise-gradients)
+![GitHub Repo stars](https://img.shields.io/github/stars/rbtavares/noise-gradients)
 
-Currently, two official plugins are available:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+An interactive tool for creating and customizing noise gradients for your web projects.\
+Preview gradients in real-time and get ready-to-use code snippets in both vanilla CSS and Tailwind CSS.
 
-## Expanding the ESLint configuration
+![Noise Gradients Preview](/preview.png)
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## Features
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+- 🎨 Interactive gradient customization with colors and direction control
+- 🌫️ Pre-made/custom noise overlay tweaking options
+- 💻 Real-time code generation for ready-to-use CSS & Tailwind implementations
+
+## Project Tech Stack
+
+- React + TypeScript
+- Vite
+- Tailwind CSS
+- Shadcn
+- Phosphor Icons
+
+## Getting Started
+
+1. Clone the repository:
+```bash
+git clone https://github.com/rbtavares/noise-gradients.git
+cd noise-gradients
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
+2. Install dependencies:
+```bash
+npm install
+# or
+yarn install
+# or
+pnpm install
 ```
+
+3. Start the development server:
+```bash
+npm run dev
+# or
+yarn dev
+# or
+pnpm dev
+```
+
+4. Open [http://localhost:5173/noise-gradients](http://localhost:5173/noise-gradients) in your browser.
+
+## Usage
+
+1. **Customize Gradient**
+   - Select start and end colors using the color pickers
+   - Choose gradient direction from the dropdown
+
+2. **Noise Options**
+   - Toggle between pre-made noise or custom SVG
+   - Adjust background size
+   - When using custom SVG:
+     - Adjust SVG size
+     - Control noise frequency
+     - Fine-tune brightness
+
+3. **Get the Code**
+   - Choose between Vanilla CSS or Tailwind format
+   - Copy the generated code
+
+## Implementation Notes
+
+- The noise overlay uses `mix-blend-mode: soft-light` for a subtle effect
+- Place content with `z-index >= 1` to ensure proper layering
+- Custom SVG noise is generated using `feTurbulence` filter
+- Background size is adjustable for different noise granularity/size
+
+---
+
+Inspired by [@jimmmy](https://x.com/jimmmy)'s [Grainy Gradients Playground](https://grainy-gradients.vercel.app/)
