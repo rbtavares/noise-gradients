@@ -78,7 +78,10 @@ const App = () => {
         {/* Header */}
         <div className="flex flex-col gap-2">
 
-          <h1 className="text-4xl font-medium">rbtavares/noise-gradients</h1>
+          <h1 className="text-4xl font-medium">
+            <span className="inline md:inline xs:hidden">{'rbtavares/'}</span>
+            noise-gradients
+          </h1>
           <p className="text-muted-foreground">A simple tool to preview noise gradients and get started with them in your projects. Includes ready-to-use code snippets and setup instructions.</p>
 
         </div>
@@ -89,7 +92,7 @@ const App = () => {
         <div className="flex flex-col gap-3">
 
           <h2 className="text-2xl">Gradient</h2>
-          <div className="grid grid-cols-3 gap-10 w-full">
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-10 w-full">
 
             <div className="flex flex-col gap-5 items-start">
               <h3>Start Color</h3>
@@ -101,7 +104,7 @@ const App = () => {
               <SliderPicker color={gradientEnd} onChange={(color) => setGradientEnd(color.hex)} className="w-full" />
             </div>
 
-            <div className="flex flex-col gap-5 items-start">
+            <div className="flex flex-col gap-5 items-start col-span-1 md:col-span-2 xl:col-span-1">
               <h3>Direction</h3>
 
               <div className="flex gap-2 flex-1 items-center w-full">
@@ -157,7 +160,7 @@ const App = () => {
               <Label htmlFor="custom-noise">Custom SVG</Label>
             </div>
           </div>
-          <div className={`w-full ${isCustomSVG ? 'grid grid-cols-4 gap-10' : ''}`}>
+          <div className={`w-full ${isCustomSVG ? 'grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-10' : ''}`}>
 
             {/* BG Size */}
             <div className="flex flex-col gap-3 items-start">

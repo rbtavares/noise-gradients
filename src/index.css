@@ -3,8 +3,13 @@
 
 @custom-variant dark (&:is(.dark *));
 
+
 body {
   overscroll-behavior: none;
+}
+
+@theme {
+  --breakpoint-xs: 425px;
 }
 
 :root {
