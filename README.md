@@ -4,7 +4,6 @@
 [![GitHub License](https://img.shields.io/github/license/rbtavares/noise-gradients)](LICENSE)
 ![GitHub Repo stars](https://img.shields.io/github/stars/rbtavares/noise-gradients)
 
-
 An interactive tool for creating and customizing noise gradients for your web projects.\
 Preview gradients in real-time and get ready-to-use code snippets in both vanilla CSS and Tailwind CSS.
 
@@ -27,12 +26,14 @@ Preview gradients in real-time and get ready-to-use code snippets in both vanill
 ## Getting Started
 
 1. Clone the repository:
+
 ```bash
 git clone https://github.com/rbtavares/noise-gradients.git
 cd noise-gradients
 ```
 
 2. Install dependencies:
+
 ```bash
 npm install
 # or
@@ -42,6 +43,7 @@ pnpm install
 ```
 
 3. Start the development server:
+
 ```bash
 npm run dev
 # or

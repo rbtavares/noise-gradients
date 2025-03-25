@@ -86,22 +86,22 @@ const App = () => {
         <Separator />
 
         {/* Gradient Parameters */}
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-col gap-3">
 
           <h2 className="text-2xl">Gradient</h2>
-          <div className="grid grid-cols-3 gap-5 w-full">
+          <div className="grid grid-cols-3 gap-10 w-full">
 
-            <div className="flex flex-col gap-2 items-start">
+            <div className="flex flex-col gap-5 items-start">
               <h3>Start Color</h3>
               <SliderPicker color={gradientStart} onChange={(color) => setGradientStart(color.hex)} className="w-full" />
             </div>
 
-            <div className="flex flex-col gap-2 items-start">
+            <div className="flex flex-col gap-5 items-start">
               <h3>End Color</h3>
               <SliderPicker color={gradientEnd} onChange={(color) => setGradientEnd(color.hex)} className="w-full" />
             </div>
 
-            <div className="flex flex-col gap-2 items-start">
+            <div className="flex flex-col gap-5 items-start">
               <h3>Direction</h3>
               <Select value={gradientDirection} onValueChange={(value) => setGradientDirection(value)}>
                 <SelectTrigger className="w-full">
@@ -135,7 +135,7 @@ const App = () => {
         <Separator />
 
         {/* Noise */}
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-col gap-3">
           <div className="flex items-center justify-between">
             <h2 className="text-2xl">Noise</h2>
 
@@ -153,10 +153,10 @@ const App = () => {
               <Label htmlFor="custom-noise">Custom SVG</Label>
             </div>
           </div>
-          <div className={`w-full ${isCustomSVG ? 'grid grid-cols-4 gap-5' : ''}`}>
+          <div className={`w-full ${isCustomSVG ? 'grid grid-cols-4 gap-10' : ''}`}>
 
             {/* BG Size */}
-            <div className="flex flex-col gap-2 items-start">
+            <div className="flex flex-col gap-3 items-start">
               <div className="flex items-end justify-between w-full">
                 <h3>BG Size</h3>
                 <span className="text-muted-foreground text-xs tabular-nums">{noiseSize} px</span>
@@ -171,7 +171,7 @@ const App = () => {
             </div>
 
             {/* SVG Size */}
-            {isCustomSVG && <div className="flex flex-col gap-2 items-start">
+            {isCustomSVG && <div className="flex flex-col gap-3 items-start">
               <div className="flex items-end justify-between w-full">
                 <h3>SVG Size</h3>
                 <span className="text-muted-foreground text-xs tabular-nums">{svgSize} px</span>
@@ -186,10 +186,10 @@ const App = () => {
             </div>}
 
             {/* Frequency */}
-            {isCustomSVG && <div className="flex flex-col gap-2 items-start">
+            {isCustomSVG && <div className="flex flex-col gap-3 items-start">
               <div className="flex items-end justify-between w-full">
                 <h3>Frequency</h3>
-                <span className="text-muted-foreground text-xs tabular-nums">{frequency.toFixed(2)}</span>
+                <span className="text-muted-foreground text-xs tabular-nums">{frequency.toFixed(3)}</span>
               </div>
               <Slider
                 value={[frequency]}
@@ -201,7 +201,7 @@ const App = () => {
             </div>}
 
             {/* Brightness */}
-            {isCustomSVG && <div className="flex flex-col gap-2 items-start">
+            {isCustomSVG && <div className="flex flex-col gap-3 items-start">
               <div className="flex items-end justify-between w-full">
                 <h3>Brightness</h3>
                 <span className="text-muted-foreground text-xs tabular-nums">{brightness.toFixed(2)}</span>
@@ -235,7 +235,7 @@ const App = () => {
               </div>
             </RadioGroup>
           </div>
-          <div className="w-full bg-muted rounded-sm text-sm overflow-auto font-mono tracking-tight">
+          <div className="w-full bg-muted rounded-sm text-sm overflow-auto font-mono">
             <SyntaxHighlighter language="tsx" style={codeBlockStyle}>
               {codeType === 'css-vanilla' ?
                 codeCSS.replace('{{gradientStart}}', gradientStart)
