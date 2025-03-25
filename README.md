@@ -1,7 +1,7 @@
 # Noise Gradients
 
-![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/rbtavares/noise-gradients/deploy.yml?label=deploy)
-![GitHub License](https://img.shields.io/github/license/rbtavares/noise-gradients)
+[![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/rbtavares/noise-gradients/deploy.yml?label=deploy)](https://rbtavares.com/noise-gradients/)
+[![GitHub License](https://img.shields.io/github/license/rbtavares/noise-gradients)](LICENSE)
 ![GitHub Repo stars](https://img.shields.io/github/stars/rbtavares/noise-gradients)
 
 
