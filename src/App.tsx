@@ -263,6 +263,7 @@ const App = () => {
           </p>
         </div>
 
+        <p className="text-xs text-muted-foreground mt-auto text-center w-full">Made by <a href="https://rbtavares.com/" className="text-foreground">@rbtavares</a> &mdash; Inspiration from <a href="https://x.com/jimmmy" target="_blank" className="text-foreground">@jimmmy</a>'s <a href="https://grainy-gradients.vercel.app/" target="_blank" className="text-foreground">Grainy gradients playground</a></p>
       </div>
 
     </div>
