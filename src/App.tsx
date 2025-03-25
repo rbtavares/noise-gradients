@@ -4,11 +4,12 @@ import { Slider } from "@/components/ui/slider";
 import { codeCSS, codeTailwind } from "@/lib/code";
 import { codeBlockStyle } from "@/lib/styles";
 import { ArrowDown, ArrowDownLeft, ArrowDownRight, ArrowLeft, ArrowRight, ArrowUp, ArrowUpLeft, ArrowUpRight, DownloadSimple } from "@phosphor-icons/react";
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { CompactPicker } from 'react-color';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { RadioGroup, RadioGroupItem } from "./components/ui/radio-group";
 import { Separator } from "./components/ui/separator";
+import { Switch } from "./components/ui/switch";
 
 const directionOptions = [
   "to top",
@@ -28,9 +29,24 @@ const App = () => {
   const [gradientDirection, setGradientDirection] = useState<string>(directionOptions[0]);
   const [codeType, setCodeType] = useState<string>('tailwind');
   const [noiseSize, setNoiseSize] = useState<number>(128);
-  const [svgSize, setSvgSize] = useState<number>(128);
-  const [frequency, setFrequency] = useState<number>(1);
+  const [svgSize, setSvgSize] = useState<number>(256);
+  const [frequency, setFrequency] = useState<number>(0.75);
   const [octaves, setOctaves] = useState<number>(1);
+  const [isCustomSVG, setIsCustomSVG] = useState<boolean>(false);
+
+  const noiseSvg = useMemo(() => {
+    const svg = `<svg viewBox='0 0 ${svgSize} ${svgSize}' xmlns='http://www.w3.org/2000/svg'>
+      <filter id='noiseFilter'>
+        <feTurbulence 
+          type='fractalNoise' 
+          baseFrequency='${frequency}' 
+          numOctaves='${octaves}' 
+          stitchTiles='stitch'/>
+      </filter>
+      <rect width='100%' height='100%' filter='url(#noiseFilter)'/>
+    </svg>`;
+    return `data:image/svg+xml;base64,${btoa(svg)}`;
+  }, [svgSize, frequency, octaves]);
 
   return (
     <div className='min-h-screen w-full bg-background flex'>
@@ -41,7 +57,13 @@ const App = () => {
           className='w-full h-full shadow-lg relative overflow-hidden'
           style={{ backgroundImage: `linear-gradient(${gradientDirection}, ${gradientStart}, ${gradientEnd})` }}
         >
-          <div className="pointer-events-none absolute inset-0 bg-[url('/noise.webp')] mix-blend-soft-light" style={{ backgroundSize: `${noiseSize}px` }} />
+          <div
+            className="pointer-events-none absolute inset-0 mix-blend-soft-light"
+            style={{
+              backgroundImage: `url("${isCustomSVG ? noiseSvg : '/noise-gradients/noise.webp'}")`,
+              backgroundSize: `${noiseSize}px`
+            }}
+          />
         </div>
       </div>
 
@@ -111,12 +133,22 @@ const App = () => {
         <div className="flex flex-col gap-2">
           <div className="flex items-center justify-between">
             <h2 className="text-2xl">Noise</h2>
-            <a href="/noise-gradients/noise.webp" download="noise.webp" className="flex items-center gap-1 text-muted-foreground text-sm hover:underline">
+
+            <a
+              href={isCustomSVG ? noiseSvg : '/noise-gradients/noise.webp'}
+              download={isCustomSVG ? 'noise.svg' : 'noise.webp'}
+              className="flex items-center gap-1 text-muted-foreground text-sm hover:underline"
+            >
               <DownloadSimple size={16} weight="bold" />
-              Download Image
+              Download {isCustomSVG ? 'Custom SVG' : 'Noise'}
             </a>
+            
+            <div className="flex items-center space-x-2">
+              <Switch id="custom-noise" checked={isCustomSVG} onCheckedChange={() => setIsCustomSVG(!isCustomSVG)} />
+              <Label htmlFor="custom-noise">Custom SVG</Label>
+            </div>
           </div>
-          <div className="grid grid-cols-4 gap-5 w-full">
+          <div className={`w-full ${isCustomSVG ? 'grid grid-cols-4 gap-5' : ''}`}>
 
             {/* BG Size */}
             <div className="flex flex-col gap-2 items-start">
@@ -133,8 +165,8 @@ const App = () => {
               />
             </div>
 
-            {/* BG Size */}
-            <div className="flex flex-col gap-2 items-start">
+            {/* SVG Size */}
+            {isCustomSVG && <div className="flex flex-col gap-2 items-start">
               <div className="flex items-end justify-between w-full">
                 <h3>SVG Size</h3>
                 <span className="text-muted-foreground text-xs tabular-nums">{svgSize} px</span>
@@ -146,10 +178,10 @@ const App = () => {
                 max={512}
                 step={16}
               />
-            </div>
+            </div>}
 
-            {/* BG Size */}
-            <div className="flex flex-col gap-2 items-start">
+            {/* Frequency */}
+            {isCustomSVG && <div className="flex flex-col gap-2 items-start">
               <div className="flex items-end justify-between w-full">
                 <h3>Frequency</h3>
                 <span className="text-muted-foreground text-xs tabular-nums">{frequency.toFixed(2)}</span>
@@ -157,14 +189,14 @@ const App = () => {
               <Slider
                 value={[frequency]}
                 onValueChange={(value) => setFrequency(value[0])}
-                min={0}
-                max={5}
-                step={0.05}
+                min={0.05}
+                max={1}
+                step={0.005}
               />
-            </div>
+            </div>}
 
-            {/* BG Size */}
-            <div className="flex flex-col gap-2 items-start">
+            {/* Octaves */}
+            {isCustomSVG && <div className="flex flex-col gap-2 items-start">
               <div className="flex items-end justify-between w-full">
                 <h3>Octaves</h3>
                 <span className="text-muted-foreground text-xs tabular-nums">{octaves}</span>
@@ -176,7 +208,7 @@ const App = () => {
                 max={10}
                 step={1}
               />
-            </div>
+            </div>}
 
           </div>
         </div>
@@ -205,11 +237,19 @@ const App = () => {
                   .replace('{{gradientEnd}}', gradientEnd)
                   .replace('{{gradientDirection}}', gradientDirection.replace(' ', '-'))
                   .replace('{{noiseSize}}', noiseSize.toString())
+                  .replace('{{svgSize}}', svgSize.toString())
+                  .replace('{{frequency}}', frequency.toString())
+                  .replace('{{octaves}}', octaves.toString())
+                  .replace('{{file}}', isCustomSVG ? 'noise.svg' : 'noise.webp')
                 :
                 codeTailwind.replace('{{gradientStart}}', gradientStart)
                   .replace('{{gradientEnd}}', gradientEnd)
                   .replace('{{gradientDirection}}', gradientDirection.split(' ').join('-'))
                   .replace('{{noiseSize}}', noiseSize.toString())
+                  .replace('{{svgSize}}', svgSize.toString())
+                  .replace('{{frequency}}', frequency.toString())
+                  .replace('{{octaves}}', octaves.toString())
+                  .replace('{{file}}', isCustomSVG ? 'noise.svg' : 'noise.webp')
               }
             </SyntaxHighlighter>
           </div>

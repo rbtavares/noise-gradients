@@ -11,7 +11,7 @@ export const codeCSS =
       pointerEvents: 'none',
       position: 'absolute',
       inset: 0,
-      backgroundImage: 'url("/noise.webp")',
+      backgroundImage: 'url("/{{file}}")',
       mixBlendMode: 'soft-light'
     }}
   />
@@ -23,6 +23,6 @@ export const codeTailwind =
   className='relative bg-gradient-{{gradientDirection}} from-[{{gradientStart}}] to-[{{gradientEnd}}]'
   style={{ backgroundSize: '{{noiseSize}}px'}}
 >
-  <div className="pointer-events-none absolute inset-0 bg-[url('/noise.webp')] mix-blend-soft-light" />
+  <div className="pointer-events-none absolute inset-0 bg-[url('/{{file}}')] mix-blend-soft-light" />
   // othercontent goes here
 </div>`
