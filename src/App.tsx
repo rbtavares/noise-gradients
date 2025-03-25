@@ -26,8 +26,11 @@ const App = () => {
   const [gradientStart, setGradientStart] = useState<string>('#009CE0');
   const [gradientEnd, setGradientEnd] = useState<string>('#F44E3B');
   const [gradientDirection, setGradientDirection] = useState<string>(directionOptions[0]);
-  const [noiseSize, setNoiseSize] = useState<number>(128);
   const [codeType, setCodeType] = useState<string>('tailwind');
+  const [noiseSize, setNoiseSize] = useState<number>(128);
+  const [svgSize, setSvgSize] = useState<number>(128);
+  const [frequency, setFrequency] = useState<number>(1);
+  const [octaves, setOctaves] = useState<number>(1);
 
   return (
     <div className='min-h-screen w-full bg-background flex'>
@@ -59,7 +62,7 @@ const App = () => {
         <div className="flex flex-col gap-2">
 
           <h2 className="text-2xl">Gradient</h2>
-          <div className="grid grid-cols-3 gap-2 w-full">
+          <div className="grid grid-cols-3 gap-5 w-full">
 
             <div className="flex flex-col gap-2 items-start">
               <h3>Start Color</h3>
@@ -113,18 +116,68 @@ const App = () => {
               Download Image
             </a>
           </div>
-          <div className="flex flex-col gap-2">
-            <div className="flex items-end justify-between">
-              <h3>Size</h3>
-              <span className="text-muted-foreground text-xs">{noiseSize} px</span>
+          <div className="grid grid-cols-4 gap-5 w-full">
+
+            {/* BG Size */}
+            <div className="flex flex-col gap-2 items-start">
+              <div className="flex items-end justify-between w-full">
+                <h3>BG Size</h3>
+                <span className="text-muted-foreground text-xs tabular-nums">{noiseSize} px</span>
+              </div>
+              <Slider
+                value={[noiseSize]}
+                onValueChange={(value) => setNoiseSize(value[0])}
+                min={64}
+                max={512}
+                step={16}
+              />
             </div>
-            <Slider
-              value={[noiseSize]}
-              onValueChange={(value) => setNoiseSize(value[0])}
-              min={64}
-              max={512}
-              step={16}
-            />
+
+            {/* BG Size */}
+            <div className="flex flex-col gap-2 items-start">
+              <div className="flex items-end justify-between w-full">
+                <h3>SVG Size</h3>
+                <span className="text-muted-foreground text-xs tabular-nums">{svgSize} px</span>
+              </div>
+              <Slider
+                value={[svgSize]}
+                onValueChange={(value) => setSvgSize(value[0])}
+                min={64}
+                max={512}
+                step={16}
+              />
+            </div>
+
+            {/* BG Size */}
+            <div className="flex flex-col gap-2 items-start">
+              <div className="flex items-end justify-between w-full">
+                <h3>Frequency</h3>
+                <span className="text-muted-foreground text-xs tabular-nums">{frequency.toFixed(2)}</span>
+              </div>
+              <Slider
+                value={[frequency]}
+                onValueChange={(value) => setFrequency(value[0])}
+                min={0}
+                max={5}
+                step={0.05}
+              />
+            </div>
+
+            {/* BG Size */}
+            <div className="flex flex-col gap-2 items-start">
+              <div className="flex items-end justify-between w-full">
+                <h3>Octaves</h3>
+                <span className="text-muted-foreground text-xs tabular-nums">{octaves}</span>
+              </div>
+              <Slider
+                value={[octaves]}
+                onValueChange={(value) => setOctaves(value[0])}
+                min={1}
+                max={10}
+                step={1}
+              />
+            </div>
+
           </div>
         </div>
 
