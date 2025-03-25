@@ -103,29 +103,33 @@ const App = () => {
 
             <div className="flex flex-col gap-5 items-start">
               <h3>Direction</h3>
-              <Select value={gradientDirection} onValueChange={(value) => setGradientDirection(value)}>
-                <SelectTrigger className="w-full">
-                  <SelectValue placeholder="Select a direction" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectGroup>
-                    <SelectLabel>Direction</SelectLabel>
-                    {directionOptions.map((option) => (
-                      <SelectItem key={option} value={option}>{option}</SelectItem>
-                    ))}
-                  </SelectGroup>
-                </SelectContent>
-              </Select>
-              <div className="flex items-center justify-center w-full h-full">
-                {gradientDirection === 'to top' && <ArrowUp size={32} weight="bold" />}
-                {gradientDirection === 'to top right' && <ArrowUpRight size={32} weight="bold" />}
-                {gradientDirection === 'to right' && <ArrowRight size={32} weight="bold" />}
-                {gradientDirection === 'to bottom right' && <ArrowDownRight size={32} weight="bold" />}
-                {gradientDirection === 'to bottom' && <ArrowDown size={32} weight="bold" />}
-                {gradientDirection === 'to bottom left' && <ArrowDownLeft size={32} weight="bold" />}
-                {gradientDirection === 'to left' && <ArrowLeft size={32} weight="bold" />}
-                {gradientDirection === 'to top left' && <ArrowUpLeft size={32} weight="bold" />}
+
+              <div className="flex gap-2 flex-1 items-center w-full">
+                <Select value={gradientDirection} onValueChange={(value) => setGradientDirection(value)}>
+                  <SelectTrigger className="w-full">
+                    <SelectValue placeholder="Select a direction" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectGroup>
+                      <SelectLabel>Direction</SelectLabel>
+                      {directionOptions.map((option) => (
+                        <SelectItem key={option} value={option}>{option}</SelectItem>
+                      ))}
+                    </SelectGroup>
+                  </SelectContent>
+                </Select>
+                <div className="aspect-square">
+                  {gradientDirection === 'to top' && <ArrowUp size={32} weight="bold" />}
+                  {gradientDirection === 'to top right' && <ArrowUpRight size={32} weight="bold" />}
+                  {gradientDirection === 'to right' && <ArrowRight size={32} weight="bold" />}
+                  {gradientDirection === 'to bottom right' && <ArrowDownRight size={32} weight="bold" />}
+                  {gradientDirection === 'to bottom' && <ArrowDown size={32} weight="bold" />}
+                  {gradientDirection === 'to bottom left' && <ArrowDownLeft size={32} weight="bold" />}
+                  {gradientDirection === 'to left' && <ArrowLeft size={32} weight="bold" />}
+                  {gradientDirection === 'to top left' && <ArrowUpLeft size={32} weight="bold" />}
+                </div>
               </div>
+
             </div>
 
           </div>
