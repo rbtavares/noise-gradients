@@ -147,7 +147,7 @@ const App = () => {
               <DownloadSimple size={16} weight="bold" />
               Download {isCustomSVG ? 'Custom SVG' : 'Noise'}
             </a>
-            
+
             <div className="flex items-center space-x-2">
               <Switch id="custom-noise" checked={isCustomSVG} onCheckedChange={() => setIsCustomSVG(!isCustomSVG)} />
               <Label htmlFor="custom-noise">Custom SVG</Label>
@@ -263,7 +263,7 @@ const App = () => {
           </p>
         </div>
 
-        <p className="text-xs text-muted-foreground mt-auto text-center w-full">Made by <a href="https://rbtavares.com/" className="text-foreground">@rbtavares</a> &mdash; Inspiration from <a href="https://x.com/jimmmy" target="_blank" className="text-foreground">@jimmmy</a>'s <a href="https://grainy-gradients.vercel.app/" target="_blank" className="text-foreground">Grainy gradients playground</a></p>
+        <p className="text-xs text-muted-foreground mt-auto text-center w-full">&copy; 2025 <a href="https://rbtavares.com/" className="text-foreground">rbtavares.com</a> &mdash; Inspired by <a href="https://grainy-gradients.vercel.app/" target="_blank" className="text-foreground">Grainy Gradient playground</a> &mdash; <a href="https://github.com/rbtavares/noise-gradients/blob/main/LICENSE" target="_blank" className="text-foreground">License</a> &mdash; <a href="https://github.com/rbtavares/noise-gradients" target="_blank" className="text-foreground">Source Code</a></p>
       </div>
 
     </div>
