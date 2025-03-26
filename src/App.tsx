@@ -105,7 +105,7 @@ const App = () => {
             <span className="hidden md:inline">{'rbtavares/'}</span>
             noise-gradients
           </h1>
-          <p className="text-muted-foreground">A simple tool to preview noise gradients and get started with them in your projects. Includes ready-to-use code snippets and setup instructions.</p>
+          <p className="text-muted-foreground">A simple tool to preview noise gradients and get started with them in your projects, including ready-to-use code snippets and customizable parameters.</p>
 
         </div>
 
