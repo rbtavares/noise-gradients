@@ -3,7 +3,7 @@ import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrig
 import { Slider } from "@/components/ui/slider";
 import { codeCSS, codeTailwind } from "@/lib/code";
 import { codeBlockStyle } from "@/lib/styles";
-import { ArrowDown, ArrowDownLeft, ArrowDownRight, ArrowLeft, ArrowRight, ArrowUp, ArrowUpLeft, ArrowUpRight, DownloadSimple } from "@phosphor-icons/react";
+import { ArrowDown, ArrowDownLeft, ArrowDownRight, ArrowLeft, ArrowRight, ArrowUp, ArrowUpLeft, ArrowUpRight, CopySimple, DownloadSimple } from "@phosphor-icons/react";
 import { useState, useMemo } from "react";
 import { SliderPicker } from 'react-color';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
@@ -52,6 +52,29 @@ const App = () => {
     </svg>`;
     return `data:image/svg+xml;base64,${btoa(svg)}`;
   }, [svgSize, frequency, brightness]);
+
+  const formattedCode = useMemo(() => {
+    return codeType === 'css-vanilla' 
+      ? codeCSS.replace('{{gradientStart}}', gradientStart)
+        .replace('{{gradientEnd}}', gradientEnd)
+        .replace('{{gradientDirection}}', gradientDirection)
+        .replace('{{noiseSize}}', noiseSize.toString())
+        .replace('{{svgSize}}', svgSize.toString())
+        .replace('{{frequency}}', frequency.toString())
+        .replace('{{brightness}}', brightness.toString())
+        .replace('{{file}}', isCustomSVG ? 'noise.svg' : 'noise.webp')
+      : codeTailwind.replace('{{gradientStart}}', gradientStart)
+        .replace('{{gradientEnd}}', gradientEnd)
+        .replace('{{gradientDirection}}', gradientDirection.split(' ').join('-'))
+        .replace('{{noiseSize}}', noiseSize.toString())
+        .replace('{{svgSize}}', svgSize.toString())
+        .replace('{{frequency}}', frequency.toString())
+        .replace('{{brightness}}', brightness.toString())
+        .replace('{{file}}', isCustomSVG ? 'noise.svg' : 'noise.webp');
+  }, [
+    codeType, gradientStart, gradientEnd, gradientDirection, 
+    noiseSize, svgSize, frequency, brightness, isCustomSVG
+  ]);
 
   return (
     <div className='min-h-screen w-full bg-background flex flex-col sm:flex-row'>
@@ -242,35 +265,30 @@ const App = () => {
               </div>
             </RadioGroup>
           </div>
-          <div className="w-full bg-muted rounded-sm text-sm overflow-auto font-mono">
+          <div className="w-full bg-muted rounded-sm text-sm overflow-auto font-mono relative">
             <SyntaxHighlighter language="tsx" style={codeBlockStyle}>
-              {codeType === 'css-vanilla' ?
-                codeCSS.replace('{{gradientStart}}', gradientStart)
-                  .replace('{{gradientEnd}}', gradientEnd)
-                  .replace('{{gradientDirection}}', gradientDirection.replace(' ', '-'))
-                  .replace('{{noiseSize}}', noiseSize.toString())
-                  .replace('{{svgSize}}', svgSize.toString())
-                  .replace('{{frequency}}', frequency.toString())
-                  .replace('{{brightness}}', brightness.toString())
-                  .replace('{{file}}', isCustomSVG ? 'noise.svg' : 'noise.webp')
-                :
-                codeTailwind.replace('{{gradientStart}}', gradientStart)
-                  .replace('{{gradientEnd}}', gradientEnd)
-                  .replace('{{gradientDirection}}', gradientDirection.split(' ').join('-'))
-                  .replace('{{noiseSize}}', noiseSize.toString())
-                  .replace('{{svgSize}}', svgSize.toString())
-                  .replace('{{frequency}}', frequency.toString())
-                  .replace('{{brightness}}', brightness.toString())
-                  .replace('{{file}}', isCustomSVG ? 'noise.svg' : 'noise.webp')
-              }
+              {formattedCode}
             </SyntaxHighlighter>
+            <div 
+              className="absolute bottom-2 right-2 p-1 bg-background rounded-sm cursor-pointer lg:opacity-50 lg:hover:opacity-100 lg:transition-opacity lg:duration-200 group"
+              onClick={() => navigator.clipboard.writeText(formattedCode)}
+            >
+              <CopySimple size={20} weight="bold" className="lg:group-active:scale-85 lg:transition-transform lg:duration-100" />
+            </div>
           </div>
           <p className="text-xs text-muted-foreground">
             Note: For optimal results, 'other content' should be placed with a z-index of &ge; 1.
           </p>
         </div>
 
-        <p className="text-xs text-muted-foreground mt-auto text-center w-full">&copy; 2025 <a href="https://rbtavares.com/" className="text-foreground">rbtavares.com</a> &mdash; Inspired by <a href="https://grainy-gradients.vercel.app/" target="_blank" className="text-foreground">Grainy Gradient playground</a> &mdash; <a href="https://github.com/rbtavares/noise-gradients/blob/main/LICENSE" target="_blank" className="text-foreground">License</a> &mdash; <a href="https://github.com/rbtavares/noise-gradients" target="_blank" className="text-foreground">Source Code</a></p>
+        <p className="text-xs text-muted-foreground mt-auto text-center w-full flex justify-center flex-wrap gap-1">
+          <span>&copy; 2025 <a href="https://rbtavares.com/" className="text-foreground">rbtavares.com</a></span>
+          <span>&mdash;</span>
+          <a href="https://github.com/rbtavares/noise-gradients/blob/main/LICENSE" target="_blank" className="text-foreground">License</a>
+          <span>&mdash;</span>
+          <a href="https://github.com/rbtavares/noise-gradients" target="_blank" className="text-foreground">Source Code</a>
+          <span>Inspired by <a href="https://grainy-gradients.vercel.app/" target="_blank" className="text-foreground">Grainy Gradient playground</a></span>
+        </p>
       </div>
 
     </div>
