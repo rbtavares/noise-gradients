@@ -281,11 +281,9 @@ const App = () => {
           </p>
         </div>
 
-        <p className="text-xs text-muted-foreground mt-auto text-center w-full flex justify-center flex-wrap gap-1">
+        <p className="text-xs text-muted-foreground mt-auto flex gap-x-3 md:gap-x-5 flex-wrap justify-center">
           <span>&copy; 2025 <a href="https://rbtavares.com/" className="text-foreground">rbtavares.com</a></span>
-          <span>&mdash;</span>
           <a href="https://github.com/rbtavares/noise-gradients/blob/main/LICENSE" target="_blank" className="text-foreground">License</a>
-          <span>&mdash;</span>
           <a href="https://github.com/rbtavares/noise-gradients" target="_blank" className="text-foreground">Source Code</a>
           <span>Inspired by <a href="https://grainy-gradients.vercel.app/" target="_blank" className="text-foreground">Grainy Gradient playground</a></span>
         </p>
