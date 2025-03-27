@@ -7,7 +7,7 @@
 An interactive tool for creating and customizing noise gradients for your web projects.\
 Preview gradients in real-time and get ready-to-use code snippets in both vanilla CSS and Tailwind CSS.
 
-![Noise Gradients Preview](/preview.png)
+![Noise Gradients Preview](/img/preview.png)
 
 ## Features
 
